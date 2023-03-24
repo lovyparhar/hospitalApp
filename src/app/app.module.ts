@@ -28,6 +28,11 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddRecordsComponent } from './add-records/add-records.component';
+import { PendingRecordsComponent } from './pending-records/pending-records.component';
+import { RequestPatientDataComponent } from './request-patient-data/request-patient-data.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     FooterComponent,
     InfoDialogComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    DashboardComponent,
+    AddRecordsComponent,
+    PendingRecordsComponent,
+    RequestPatientDataComponent
   ],
   imports: [
     BrowserModule,

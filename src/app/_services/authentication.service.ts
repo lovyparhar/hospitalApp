@@ -30,43 +30,35 @@ export class AuthenticationService {
       );
   }
 
-  register(
-    firstname: string,
-    lastname: string,
-    email: string,
-    aadhar: string,
-    password: string
-  ) {
-    let postUrl = this.globalService.hospitalRootUrl + '/auth/register';
-    console.log(postUrl);
+  // register(
+  //   firstname: string,
+  //   lastname: string,
+  //   email: string,
+  //   aadhar: string,
+  //   password: string
+  // ) {
+  //   let postUrl = this.globalService.hospitalRootUrl + '/auth/register';
+  //   console.log(postUrl);
 
-    return this.http
-      .post<any>(postUrl, {
-        firstname: firstname,
-        lastname: lastname,
-        aadhar: aadhar,
-        password: password,
-        email: email,
-        dateOfBirth: "24/08/2000"
-      })
-      .pipe(
-        map((credentials) => {
-          console.log('The aadhar and password', aadhar, ' ', password);
-          console.log('The Credentials is ', credentials);
+  //   return this.http
+  //     .post<any>(postUrl, {
+  //       firstname: firstname,
+  //       lastname: lastname,
+  //       aadhar: aadhar,
+  //       password: password,
+  //       email: email,
+  //       dateOfBirth: "24/08/2000"
+  //     })
+  //     .pipe(
+  //       map((credentials) => {
+  //         console.log('The aadhar and password', aadhar, ' ', password);
+  //         console.log('The Credentials is ', credentials);
 
-          // login successful if there's a jwt token in the response
-          return credentials;
-        })
-      );
-  }
-
-  hello() {
-    let postUrl = this.globalService.hospitalRootUrl + '/hello';
-    console.log(postUrl);
-
-    return this.http
-      .get<any>(postUrl);
-  }
+  //         // login successful if there's a jwt token in the response
+  //         return credentials;
+  //       })
+  //     );
+  // }
 
   change_password(new_password: string) {
     let postUrl = this.globalService.hospitalRootUrl + '/auth/change-password';
