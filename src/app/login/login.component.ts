@@ -1,10 +1,6 @@
 import {
   Component,
   OnInit,
-  EventEmitter,
-  Inject,
-  Input,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

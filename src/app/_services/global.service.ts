@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
   hospitalRootUrl: string = 'http://127.0.0.1:9000';
+  demographicRootUrl: string = 'http://127.0.0.1:7001';
+
   recordList: any[] = [];
   constructor() {}
 

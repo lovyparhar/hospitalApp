@@ -33,6 +33,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddRecordsComponent } from './add-records/add-records.component';
 import { PendingRecordsComponent } from './pending-records/pending-records.component';
 import { RequestPatientDataComponent } from './request-patient-data/request-patient-data.component';
+import { ApprovedConsentsComponent } from './approved-consents/approved-consents.component';
+import { RequestConsentComponent } from './request-consent/request-consent.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { RequestPatientDataComponent } from './request-patient-data/request-pati
     DashboardComponent,
     AddRecordsComponent,
     PendingRecordsComponent,
-    RequestPatientDataComponent
+    RequestPatientDataComponent,
+    ApprovedConsentsComponent,
+    RequestConsentComponent
   ],
   imports: [
     BrowserModule,
