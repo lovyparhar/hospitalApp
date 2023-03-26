@@ -35,6 +35,8 @@ import { PendingRecordsComponent } from './pending-records/pending-records.compo
 import { RequestPatientDataComponent } from './request-patient-data/request-patient-data.component';
 import { ApprovedConsentsComponent } from './approved-consents/approved-consents.component';
 import { RequestConsentComponent } from './request-consent/request-consent.component';
+import { CreatePatientComponent } from './create-patient/create-patient.component';
+import { CreatePatientRecordComponent } from './create-patient-record/create-patient-record.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { RequestConsentComponent } from './request-consent/request-consent.compo
     PendingRecordsComponent,
     RequestPatientDataComponent,
     ApprovedConsentsComponent,
-    RequestConsentComponent
+    RequestConsentComponent,
+    CreatePatientComponent,
+    CreatePatientRecordComponent
   ],
   imports: [
     BrowserModule,

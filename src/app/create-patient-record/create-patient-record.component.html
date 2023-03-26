@@ -1,0 +1,157 @@
+<div class="container">
+  <div class="row justify-content-center row-content">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center text-white bg-info">
+          <h2>Create Patient Record</h2>
+        </div>
+
+        <div class="card-body">
+          <!-- FORM STARTS HERE -->
+          <form
+            novalidate
+            [formGroup]="recordForm"
+            #fform="ngForm"
+            (ngSubmit)="record()"
+          >
+            <div
+              class="form-group row form-row align-items-center justify-content-center"
+            >
+              <div class="col-12 form-label">
+                <label for="hospitalName">Hospital Name</label>
+              </div>
+
+              <div class="col-12">
+                <input
+                  name="hospitalName"
+                  type="text"
+                  formControlName="hospitalName"
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': formErrors.hospitalName
+                  }"
+                  id="hospitalName"
+                  required
+                  placeholder="Hospital Name"
+                />
+              </div>
+              <span *ngIf="formErrors.hospitalName" class="text-danger">
+                {{ formErrors.hospitalName }}
+              </span>
+            </div>
+            <div
+              class="form-group row form-row align-items-center justify-content-center"
+            >
+              <div class="col-12 form-label">
+                <label for="department">Department</label>
+              </div>
+
+              <div class="col-12">
+                <input
+                  name="department"
+                  type="text"
+                  formControlName="department"
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': formErrors.department
+                  }"
+                  id="department"
+                  required
+                  placeholder="Department"
+                />
+              </div>
+              <span *ngIf="formErrors.department" class="text-danger">
+                {{ formErrors.department }}
+              </span>
+            </div>
+            <div
+              class="form-group row form-row align-items-center justify-content-center"
+            >
+              <div class="col-12 form-label">
+                <label for="address">Address</label>
+              </div>
+
+              <div class="col-12">
+                <input
+                  name="address"
+                  type="text"
+                  formControlName="address"
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': formErrors.address
+                  }"
+                  id="address"
+                  required
+                  placeholder="Address"
+                />
+              </div>
+              <span *ngIf="formErrors.address" class="text-danger">
+                {{ formErrors.address }}
+              </span>
+            </div>
+
+            <div
+              class="form-group row form-row align-items-center justify-content-center"
+            >
+              <div class="col-12 form-label">
+                <label for="diagnosis">Diagnosis</label>
+              </div>
+
+              <div class="col-12">
+                <input
+                  name="diagnosis"
+                  type="text"
+                  formControlName="diagnosis"
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': formErrors.diagnosis
+                  }"
+                  id="diagnosis"
+                  placeholder="Diagnosis"
+                />
+              </div>
+              <span *ngIf="formErrors.diagnosis" class="text-danger">
+                {{ formErrors.diagnosis }}
+              </span>
+            </div>
+            <div
+              class="form-group row form-row align-items-center justify-content-center"
+            >
+              <div class="col-12 form-label">
+                <label for="prescription">Prescription</label>
+              </div>
+
+              <div class="col-12">
+                <textarea
+                  name="prescription"
+                  type="prescription"
+                  formControlName="prescription"
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': formErrors.prescription
+                  }"
+                  id="prescription"
+                  placeholder="Prescription"
+                ></textarea>
+              </div>
+              <span *ngIf="formErrors.prescription" class="text-danger">
+                {{ formErrors.prescription }}
+              </span>
+            </div>
+            <div class="form-group row form-row mt-3">
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-info col-12"
+                  [disabled]="recordForm.invalid"
+                >
+                  Submit Record
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

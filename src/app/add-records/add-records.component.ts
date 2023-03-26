@@ -39,7 +39,9 @@ export class AddRecordsComponent implements OnInit {
       aadhar: ['', [Validators.required]],
     });
 
-    this.verfiyPatientForm.valueChanges.subscribe((data) => this.onValueChanged(data));
+    this.verfiyPatientForm.valueChanges.subscribe((data) =>
+      this.onValueChanged(data)
+    );
 
     this.onValueChanged(); // (re)set form validation messages
   }
@@ -66,30 +68,36 @@ export class AddRecordsComponent implements OnInit {
       }
     }
   }
-  verifyPatient(){
+  verifyPatient() {
     let aadhar = this.verfiyPatientForm.value.aadhar;
-      let password = this.verfiyPatientForm.value.password;
+    let password = this.verfiyPatientForm.value.password;
 
-      this.verfiyPatientFormDirective.resetForm();
-      this.verfiyPatientForm.reset({
-        aadhar: '',
-        password: '',
-      });
+    this.verfiyPatientFormDirective.resetForm();
+    this.verfiyPatientForm.reset({
+      aadhar: '',
+      password: '',
+    });
 
-      this.authenticationService.verifyPatient(aadhar).subscribe(
-        (data: any) => {
-          this.postverfiyPatient();
-          this.modalService.displayOkDialog('verfiyPatient Successful!', '');
-        },
-        (error: any) => {
-          // console.log(error);
-          this.modalService.displayOkDialog(
-            'verfiyPatient Error',
-            'The username/password is not valid.'
-          );
+    this.authenticationService.verifyPatient(aadhar).subscribe(
+      (data: any) => {
+        if (!data.message) {
+          this.modalService.displayOkDialog('Patient Successfully Verified!', '');
+          this.router.navigate(['/createpatientrecord'], {state : data});
         }
-      );
+        else {
+          this.modalService.displayOkDialog('Error in verifying patient!',
+          'Please create a new user.');
+          this.router.navigate(['/createpatient']);
+        }
+      },
+      (error: any) => {
+        // console.log(error);
+        this.modalService.displayOkDialog(
+          'verfiyPatient Error',
+          'The Aadhaar is not valid.'
+        );
+      }
+    );
   }
-  postverfiyPatient(){}
   ngOnInit(): void {}
 }
