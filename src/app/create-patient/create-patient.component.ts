@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
 import { GlobalService } from '../_services/global.service';
 import { ModalService } from '../_services/modal.service';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -13,13 +15,12 @@ import { ConsentService } from '../_services/consent.service';
 export class CreatePatientComponent implements OnInit {
   registerForm!: FormGroup;
   @ViewChild('fform') registerFormDirective!: any;
-  state: any;
-
+  aadhar: any;
   formErrors: any = {
     firstName: '',
     lastName: '',
-    aadhar: '',
     phoneNumber: '',
+    dob: '',
   };
 
   validationMessages: any = {
@@ -28,9 +29,6 @@ export class CreatePatientComponent implements OnInit {
     },
     lastName: {
       required: 'Last Name is required.',
-    },
-    aadhar: {
-      required: 'aadhar is required.',
     },
     phoneNumber: {
       required: 'phoneNumber is required.',
@@ -42,17 +40,18 @@ export class CreatePatientComponent implements OnInit {
     private consentservice: ConsentService,
     private globalService: GlobalService,
     private formBuilder: FormBuilder,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private datePipe: DatePipe
   ) {
     this.createForm();
+    this.aadhar = this.router.getCurrentNavigation()?.extras.state;
   }
   createForm(): void {
     this.registerForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      aadhar: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
-
+      dob: ['', [Validators.required]],
     });
 
     this.registerForm.valueChanges.subscribe((data) =>
@@ -88,19 +87,22 @@ export class CreatePatientComponent implements OnInit {
   register() {
     let firstName = this.registerForm.value.firstName;
     let lastName = this.registerForm.value.lastName;
-    let aadhar = this.registerForm.value.aadhar;
+    let aadhar = this.aadhar;
+    let dob = this.registerForm.value.dob;
+    let myDate: Date = dob;
+    const isodob = this.datePipe.transform(myDate, 'yyyy-MM-ddTHH:mm:ss.SSSZ')?.slice(0,19) as string;
     let phoneNumber = this.registerForm.value.phoneNumber;
 
     this.registerFormDirective.resetForm();
     this.registerForm.reset({
       firstName: '',
       lastName: '',
-      aadhar: '',
       phoneNumber: '',
+      dob: '',
     });
 
     this.consentservice
-      .adduser(firstName, lastName, aadhar,phoneNumber)
+      .adduser(firstName, lastName, aadhar, phoneNumber, isodob)
       .subscribe(
         (data: any) => {
           this.postregister(data);
@@ -112,7 +114,7 @@ export class CreatePatientComponent implements OnInit {
       );
   }
   postregister(data: any) {
-    this.router.navigate(['createpatientrecord'], { state:  data});
+    this.router.navigate(['createpatientrecord'], { state: data });
   }
   ngOnInit(): void {}
 }

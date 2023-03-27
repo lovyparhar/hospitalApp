@@ -13,7 +13,7 @@ import { GlobalService } from './_services/global.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -84,6 +84,7 @@ import { CreatePatientRecordComponent } from './create-patient-record/create-pat
     },
     MatDatepickerModule,
     MatNativeDateModule,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

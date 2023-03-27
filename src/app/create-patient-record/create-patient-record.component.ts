@@ -16,7 +16,6 @@ export class CreatePatientRecordComponent implements OnInit {
   @ViewChild('fform') recordFormDirective!: any;
 
   formErrors: any = {
-    hospitalName: '',
     department: '',
     address: '',
     diagnosis: '',
@@ -24,9 +23,7 @@ export class CreatePatientRecordComponent implements OnInit {
   };
 
   validationMessages: any = {
-    hospitalName: {
-      required: 'First name is required.',
-    },
+  
     department: {
       required: 'Last Name is required.',
     },
@@ -40,6 +37,7 @@ export class CreatePatientRecordComponent implements OnInit {
       required: 'diagnosis is required.',
     },
   };
+  departments : any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
@@ -54,7 +52,6 @@ export class CreatePatientRecordComponent implements OnInit {
   }
   createForm(): void {
     this.recordForm = this.formBuilder.group({
-      hospitalName: ['', [Validators.required]],
       department: ['', [Validators.required]],
       address: ['', [Validators.required]],
       diagnosis: ['', [Validators.required]],
@@ -92,7 +89,7 @@ export class CreatePatientRecordComponent implements OnInit {
   }
 
   record() {
-    let hospitalName = this.recordForm.value.hospitalName;
+    let hospitalName = "H1";
     let department = this.recordForm.value.department;
     let address = this.recordForm.value.address;
     let diagnosis = this.recordForm.value.diagnosis;
@@ -102,7 +99,6 @@ export class CreatePatientRecordComponent implements OnInit {
 
     this.recordFormDirective.resetForm();
     this.recordForm.reset({
-      hospitalName: '',
       department: '',
       address: '',
       diagnosis: '',

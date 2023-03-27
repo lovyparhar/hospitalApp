@@ -11,24 +11,21 @@ export class ConsentService {
 
   compose_consent(
     sourceHospitalId: string,
-    destinationHospitalId: string,
-    startDate: string,
+    department: string,
+    aadhar: string,
     endDate: string
   ) {
     if (!this.globalService.currentCredentials) return;
 
-    let postUrl = this.globalService.hospitalRootUrl + '/consent/sendConsent';
-    let approved = false; // Should be always true.
-    let patientId = this.globalService.currentCredentials.aadhar;
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/request-consent';
 
     return this.http.post(
       postUrl,
       {
-        approved: approved,
-        patientId: patientId,
-        destinationHospitalId: destinationHospitalId,
-        sourceHospitalId: sourceHospitalId,
-        startTime: startDate,
+        recordSenderHospital: sourceHospitalId,
+        recordRequesterHospital: "H1",
+        patientId: aadhar,
+        department: department,
         endTime: endDate,
       },
       { responseType: 'text' }
@@ -38,11 +35,11 @@ export class ConsentService {
     firstname: string,
     lastname: string,
     aadhar: string,
-    phoneNumber: string
+    phoneNumber: string,
+    dateOfBirth: string
   ) {
     let postUrl =
       this.globalService.demographicRootUrl + '/user-demographic/add-user';
-    console.log(postUrl);
 
     return this.http
       .post<any>(postUrl, {
@@ -50,7 +47,7 @@ export class ConsentService {
         lastName: lastname,
         aadhar: aadhar,
         phoneNumber: phoneNumber,
-        dateOfBirth: "2000-08-24T00:00:00"
+        dateOfBirth: dateOfBirth,
       })
       .pipe(
         map((credentials) => {
@@ -64,10 +61,9 @@ export class ConsentService {
     diagnosis: string,
     address: string,
     prescription: string,
-    aadhar: string,
+    aadhar: string
   ) {
-    let postUrl =
-      this.globalService.hospitalRootUrl + '/doctor/addrecord';
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/addrecord';
     console.log(postUrl);
 
     return this.http
@@ -76,7 +72,7 @@ export class ConsentService {
         department: department,
         aadhar: aadhar,
         address: address,
-        diagnosis:diagnosis,
+        diagnosis: diagnosis,
         prescription: prescription,
       })
       .pipe(

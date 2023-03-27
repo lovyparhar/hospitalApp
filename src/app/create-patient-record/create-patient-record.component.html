@@ -8,6 +8,45 @@
 
         <div class="card-body">
           <!-- FORM STARTS HERE -->
+          <div class="card mb-4">
+            <div class="card-header text-center text-white bg-info">
+              Patient Details
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">First Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    {{ this.state.firstName }}
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Last Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    {{ this.state.lastName }}
+                  </p>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Aadhaar Number</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    {{ this.state.aadhar }}
+                  </p>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
           <form
             novalidate
             [formGroup]="recordForm"
@@ -18,47 +57,24 @@
               class="form-group row form-row align-items-center justify-content-center"
             >
               <div class="col-12 form-label">
-                <label for="hospitalName">Hospital Name</label>
-              </div>
-
-              <div class="col-12">
-                <input
-                  name="hospitalName"
-                  type="text"
-                  formControlName="hospitalName"
-                  [ngClass]="{
-                    'form-control': true,
-                    'is-invalid': formErrors.hospitalName
-                  }"
-                  id="hospitalName"
-                  required
-                  placeholder="Hospital Name"
-                />
-              </div>
-              <span *ngIf="formErrors.hospitalName" class="text-danger">
-                {{ formErrors.hospitalName }}
-              </span>
-            </div>
-            <div
-              class="form-group row form-row align-items-center justify-content-center"
-            >
-              <div class="col-12 form-label">
                 <label for="department">Department</label>
               </div>
 
               <div class="col-12">
-                <input
-                  name="department"
-                  type="text"
-                  formControlName="department"
-                  [ngClass]="{
-                    'form-control': true,
-                    'is-invalid': formErrors.department
-                  }"
-                  id="department"
-                  required
-                  placeholder="Department"
-                />
+                <select
+                    name="department"
+                    formControlName="department"
+                    required
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': formErrors.department
+                    }"
+                  >
+                    <option disabled>Select Department</option>
+                    <option *ngFor="let dept of departments">
+                      {{ dept }}
+                    </option>
+                  </select>
               </div>
               <span *ngIf="formErrors.department" class="text-danger">
                 {{ formErrors.department }}

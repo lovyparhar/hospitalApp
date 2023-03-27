@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
 import { ConsentService } from '../_services/consent.service';
 import { GlobalService } from '../_services/global.service';
 import { ModalService } from '../_services/modal.service';
@@ -22,8 +23,8 @@ export class RequestConsentComponent implements OnInit {
 
   formErrors: any = {
     sourcehospital: '',
-    destinationhospital: '',
-    startdate: '',
+    department: '',
+    aadhar: '',
     enddate: '',
   };
 
@@ -31,33 +32,35 @@ export class RequestConsentComponent implements OnInit {
     sourcehospital: {
       required: 'Source Hospital is required.',
     },
-    destinationhospital: {
+    department: {
       required: 'Source Hospital is required.',
     },
-    startdate: {
-      required: 'daterange is required.',
+    aadhar: {
+      required: 'aadhar is required.',
     },
     enddate: {
       required: 'daterange is required.',
     },
   };
-  sourceHospitals: any = ['H1', 'H2', 'H3'];
-  destinationHospitals: any = ['H1', 'H2', 'H3'];
+  sourceHospitals: any = ['All hospitals', 'H1', 'H2', 'H3'];
+  departments : any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
+
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
     private globalService: GlobalService,
     private formBuilder: FormBuilder,
     private modalService: ModalService,
-    private consentService: ConsentService
+    private consentService: ConsentService,
+    private datePipe: DatePipe
   ) {
     this.createForm();
   }
   createForm(): void {
     this.consentForm = this.formBuilder.group({
       sourcehospital: ['', [Validators.required]],
-      destinationhospital: ['', [Validators.required]],
-      startdate: ['', [Validators.required]],
+      department: ['', [Validators.required]],
+      aadhar: ['', [Validators.required]],
       enddate: ['', [Validators.required]],
     });
 
@@ -91,20 +94,20 @@ export class RequestConsentComponent implements OnInit {
     }
   }
   composeConsent() {
-    const isoString = this.consentForm.value.startdate
-      .toISOString()
-      .slice(0, 19);
+    
+    let myDate: Date = this.consentForm.value.enddate;
+    const enddate = this.datePipe.transform(myDate, 'yyyy-MM-ddTHH:mm:ss') as string;
 
     this.consentService
       .compose_consent(
         this.consentForm.value.sourcehospital,
-        this.consentForm.value.destinationhospital,
-        this.consentForm.value.startdate.toISOString().slice(0, 19),
-        this.consentForm.value.enddate.toISOString().slice(0, 19)
+        this.consentForm.value.department,
+        this.consentForm.value.aadhar,
+        enddate
       )
       ?.subscribe((data) => {
         this.modalService.displayOkDialog('Consent Created Successfully!', '');
-        window.location.reload();
+        this.router.navigate(['/dashboard']);
       });
   }
 

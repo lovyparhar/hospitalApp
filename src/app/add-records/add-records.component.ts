@@ -70,12 +70,10 @@ export class AddRecordsComponent implements OnInit {
   }
   verifyPatient() {
     let aadhar = this.verfiyPatientForm.value.aadhar;
-    let password = this.verfiyPatientForm.value.password;
 
     this.verfiyPatientFormDirective.resetForm();
     this.verfiyPatientForm.reset({
       aadhar: '',
-      password: '',
     });
 
     this.authenticationService.verifyPatient(aadhar).subscribe(
@@ -87,7 +85,7 @@ export class AddRecordsComponent implements OnInit {
         else {
           this.modalService.displayOkDialog('Error in verifying patient!',
           'Please create a new user.');
-          this.router.navigate(['/createpatient']);
+          this.router.navigate(['/createpatient'], {state : aadhar});
         }
       },
       (error: any) => {

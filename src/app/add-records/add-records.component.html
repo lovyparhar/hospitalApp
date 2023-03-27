@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header text-center text-white bg-info">
-            <h2>verfiyPatient Form</h2>
+            <h2>Verify Patient Form</h2>
           </div>
   
           <div class="card-body">
@@ -12,14 +12,14 @@
             <form novalidate [formGroup]="verfiyPatientForm" #fform="ngForm" (ngSubmit)="verifyPatient()">
               <div class="form-group row form-row align-items-center justify-content-center">
                 <div class="col-12 form-label">
-                  <label for="aadhar">Aadhar</label>
+                  <label for="aadhar">Aadhaar</label>
                 </div>
   
                 <div class="col-12">
                   <input name="aadhar" type="text" formControlName="aadhar" [ngClass]="{
                       'form-control': true,
                       'is-invalid': formErrors.aadhar
-                    }" id="aadhar" required placeholder="Aadhar Number" />
+                    }" id="aadhar" required placeholder="Aadhaar Number" />
                 </div>
                 <span *ngIf="formErrors.aadhar" class="text-danger">
                   {{ formErrors.aadhar }}
@@ -29,7 +29,7 @@
               <div class="form-group row form-row mt-3">
                 <div class="col-12">
                   <button type="submit" class="btn btn-info col-12 text-center text-white" [disabled]="verfiyPatientForm.invalid">
-                    verfiyPatient
+                    Verify Patient
                   </button>
                 </div>
               </div>
