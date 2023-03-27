@@ -50,7 +50,7 @@ export class ConsentService {
         lastName: lastname,
         aadhar: aadhar,
         phoneNumber: phoneNumber,
-        // dateOfBirth: "24/08/2000"
+        dateOfBirth: "2000-08-24T00:00:00"
       })
       .pipe(
         map((credentials) => {
