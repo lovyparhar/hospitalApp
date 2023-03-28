@@ -87,4 +87,30 @@ export class ConsentService {
       this.globalService.hospitalRootUrl + '/doctor/getApprovedConsents';
     return this.http.get(postUrl);
   }
+  request_data(recordSenderHospital: string, department: string, aadhar: string) {
+    if (!this.globalService.currentCredentials) return;
+
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/request-data';
+    console.log(postUrl);
+
+    let recordRequesterHospital = 'H1';
+
+    return this.http.post<any>(postUrl, {
+      patientId: aadhar,
+      department: department,
+      recordRequesterHospital: recordRequesterHospital,
+      recordSenderHospital: recordSenderHospital,
+      requestTime: "2023-03-03T23:24:00"
+    });
+  }
+  fetchData() {
+    let postUrl =
+      this.globalService.hospitalRootUrl + '/doctor/getRecords';
+    return this.http.get(postUrl);
+  }
+  clearRecords() {
+    let postUrl =
+      this.globalService.hospitalRootUrl + '/doctor/clear-records';
+    return this.http.get(postUrl);
+  }
 }
