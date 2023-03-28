@@ -17,13 +17,14 @@ export class ConsentService {
   ) {
     if (!this.globalService.currentCredentials) return;
 
-    let postUrl = this.globalService.hospitalRootUrl + '/doctor/request-consent';
+    let postUrl =
+      this.globalService.hospitalRootUrl + '/doctor/request-consent';
 
     return this.http.post(
       postUrl,
       {
         recordSenderHospital: sourceHospitalId,
-        recordRequesterHospital: "H1",
+        recordRequesterHospital: 'H1',
         patientId: aadhar,
         department: department,
         endTime: endDate,
@@ -80,5 +81,10 @@ export class ConsentService {
           return credentials;
         })
       );
+  }
+  getApprovedConsents() {
+    let postUrl =
+      this.globalService.hospitalRootUrl + '/doctor/getApprovedConsents';
+    return this.http.get(postUrl);
   }
 }

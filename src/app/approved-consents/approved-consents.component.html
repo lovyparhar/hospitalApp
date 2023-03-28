@@ -1,1 +1,71 @@
-<p>approved-consents works!</p>
+<div
+  class="row justify-content-center row-content p-3 m-2"
+  style="background-color: rgb(236, 236, 236)"
+>
+  <div class="text-center">
+    <h2>Approved Consents List</h2>
+  </div>
+
+  <div
+    class="col-md-10 m-2"
+    *ngFor="let consent of approvedConsentList; let i = index"
+  >
+    <div class="card mb-4">
+      <div class="card-header text-center text-white bg-info">
+        Consent #{{ i + 1 }}
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Patient Aadhaar :</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{ consent.patientId }}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Record Sending Hospital :</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{ consent.sourceHospitalId }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Department :</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{ consent.department }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Record Receiving Hospital :</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{ consent.destinationHospitalId }}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Start Time :</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{ consent.startTime.slice(0, 10) }}  {{consent.startTime.slice(12)}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">End Time :</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{ consent.endTime.slice(0, 10) }}  {{consent.endTime.slice(12)}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
