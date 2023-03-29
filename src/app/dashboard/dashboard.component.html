@@ -3,13 +3,13 @@
     <div *ngIf="globalservice.currentCredentials.role === 'DOCTOR'" class="col-md-6">
       <div class="row justify-content-center row-content p-2">
         <div class="col-md-6">
-          <a class="btn btn-info col-12 position-relative" routerLink="/pendingrecords">
+          <a class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/pendingrecords">
             <div class="card-body text-center">Pending Records</div>
           </a>
         </div>
 
         <div class="col-md-6">
-          <a class="btn btn-info col-12 position-relative" routerLink="/addrecords">
+          <a class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/addrecords">
             <div class="card-body text-center">Add Records</div>
           </a>
         </div>
@@ -18,13 +18,13 @@
       <div class="row justify-content-center row-content p-2">
 
         <div class="col-md-6">
-          <button class="btn btn-info col-12 position-relative" routerLink="/requestpatientdata">
+          <button class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/requestpatientdata">
             <div class="card-body text-center">Request Patient Data</div>
           </button>
         </div>
 
         <div class="col-md-6">
-          <button class="btn btn-info col-12 position-relative" routerLink="/requestconsent">
+          <button class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/requestconsent">
             <div class="card-body text-center">Request Consent</div>
           </button>
           
@@ -32,15 +32,15 @@
 
       </div>
       <div class="row justify-content-center row-content p-2">
-        <div class="col">
-          <button class="btn btn-info col-12 position-relative" routerLink="/approvedconsents">
+        <!-- <div class="col"> -->
+          <button class="btn btn-info col-6 position-relative p-3 mb-5 text-white fw-bold" routerLink="/approvedconsents">
             <div class="card-body text-center">Approved Consents</div>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger bg-danger">
+            <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger bg-danger">
               99+
               <span class="visually-hidden">unread messages</span>
-          </span>
+          </span> -->
           </button>
-        </div>
+        <!-- </div> -->
 
       </div>
     </div>
@@ -55,8 +55,8 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="card mb-4">
-        <div class="card-header text-center text-white bg-info">
+      <div class="card mb-4 shadow-lg">
+        <div class="card-header text-center text-white bg-info fw-bold">
           Details
         </div>
         <div class="card-body">

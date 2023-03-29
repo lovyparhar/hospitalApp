@@ -3,11 +3,11 @@
   <div class="container">
     <!-- The title -->
     <div class="container text-white">
-      <h1>HealthCare App - Hospital</h1>
+      <h2>HealthCare App - Hospital</h2>
     </div>
 
     <!-- If user logged in, write a welcome note on the navbar -->
-    <div class="container text-white">
+    <div class="container text-white fw-bold">
       <span id="welcome">{{
         globalservice.currentCredentials
           ? "Welcome " +
@@ -38,7 +38,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
-            class="nav-link"
+            class=" btn nav-link"
             routerLink="{{
               globalservice.currentCredentials ? '/dashboard' : '/'
             }}"
@@ -48,17 +48,17 @@
         </li>
 
         <li class="nav-item" *ngIf="!globalservice.currentCredentials">
-          <a class="nav-link" routerLink="/login">Login</a>
+          <a class="btn nav-link" routerLink="/login">Login</a>
         </li>
 
         <li class="nav-item" *ngIf="globalservice.currentCredentials">
-          <a class="nav-link" routerLink="/change_password">Change Password</a>
+          <a class="btn nav-link" routerLink="/change_password">Change Password</a>
         </li>
 
         <li class="nav-item">
           <a
             *ngIf="globalservice.currentCredentials"
-            class="nav-link pointer"
+            class="btn nav-link pointer"
             (click)="logout()"
             >Logout</a
           >
