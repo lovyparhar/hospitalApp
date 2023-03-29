@@ -39,7 +39,6 @@ export class ModalService {
     title = `<div class="text-danger">${title}</div>`
 
     const message = `
-      Status: ${JSON.stringify(err.status)}
       <br>
       Message: ${errorMessage}
     `;

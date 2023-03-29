@@ -9,7 +9,7 @@ import { ConsentService } from '../_services/consent.service';
 @Component({
   selector: 'app-request-patient-data',
   templateUrl: './request-patient-data.component.html',
-  styleUrls: ['./request-patient-data.component.scss']
+  styleUrls: ['./request-patient-data.component.scss'],
 })
 export class RequestPatientDataComponent implements OnInit {
   getRecordsForm!: FormGroup;
@@ -19,7 +19,7 @@ export class RequestPatientDataComponent implements OnInit {
   formErrors: any = {
     sourcehospital: '',
     department: '',
-    aadhar:'',
+    aadhar: '',
   };
 
   validationMessages: any = {
@@ -50,7 +50,6 @@ export class RequestPatientDataComponent implements OnInit {
       sourcehospital: ['', [Validators.required]],
       department: ['', [Validators.required]],
       aadhar: ['', [Validators.required]],
-
     });
 
     this.getRecordsForm.valueChanges.subscribe((data) =>
@@ -85,23 +84,31 @@ export class RequestPatientDataComponent implements OnInit {
   }
 
   getRecords() {
-    console.log(this.getRecordsForm.value);
-
     this.consentService
       .request_data(
         this.getRecordsForm.value.sourcehospital,
         this.getRecordsForm.value.department,
         this.getRecordsForm.value.aadhar
       )
-      ?.subscribe((data) => {
-        console.log(data);
-      });
-
-    this.getRecordsFormDirective.resetForm();
-    this.getRecordsForm.reset({
-      sourcehospital: '',
-      department: '',
-    });
+      ?.subscribe(
+        (data) => {
+          this.modalService.displayOkDialog(
+            'Valid Approved Consent Found. Data Arriving soon.',
+            'Please use refresh button below to get records '
+          );
+          this.getRecordsFormDirective.resetForm();
+          this.getRecordsForm.reset({
+            sourcehospital: '',
+            department: '',
+          });
+        },
+        (error) => {
+          this.modalService.displayError(error);
+          if (error.status === 404) {
+            this.router.navigate(['/requestconsent']);
+          }
+        }
+      );
   }
   fetchRecords() {
     this.consentService.fetchData()?.subscribe((data) => {
@@ -110,11 +117,26 @@ export class RequestPatientDataComponent implements OnInit {
     });
   }
   clearRecords() {
-    this.consentService.clearRecords()?.subscribe((data) => {
-      window.location.reload();
-    });
-  }
-  ngOnInit(): void {
+    this.modalService
+      .confirmationDialog(
+        'Confirm',
+        'Are you sure you want to clear all requested records?'
+      )
+      ?.subscribe((res) => {
+        if (res === 'y') {
+          this.consentService.clearRecords()?.subscribe((data) => {
+            this.modalService.displayOkDialog('Records Cleared', '');
+            // window.location.reload();
+            let currentUrl = this.router.url;
+            this.router
+              .navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentUrl]);
+              });
+          });
+        }
+      });
   }
 
+  ngOnInit(): void {}
 }
