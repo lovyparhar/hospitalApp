@@ -9,18 +9,19 @@ import { LoginComponent } from './login/login.component';
 import { PendingRecordsComponent } from './pending-records/pending-records.component';
 import { RequestConsentComponent } from './request-consent/request-consent.component';
 import { RequestPatientDataComponent } from './request-patient-data/request-patient-data.component';
+import { AuthGuard } from './auth.gaurd';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: HomeComponent },
   { path: '', component: HomeComponent },
-  { path: 'pendingrecords', component: PendingRecordsComponent },
-  { path: 'addrecords', component: AddRecordsComponent },
-  { path: 'requestpatientdata', component: RequestPatientDataComponent },
-  { path: 'approvedconsents', component: ApprovedConsentsComponent },
-  { path: 'requestconsent', component: RequestConsentComponent },
-  { path: 'createpatient', component: CreatePatientComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'createpatientrecord', component: CreatePatientRecordComponent},
+  { path: 'pendingrecords', component: PendingRecordsComponent, canActivate: [AuthGuard] },
+  { path: 'addrecords', component: AddRecordsComponent, canActivate: [AuthGuard] },
+  { path: 'requestpatientdata', component: RequestPatientDataComponent, canActivate: [AuthGuard] },
+  { path: 'approvedconsents', component: ApprovedConsentsComponent, canActivate: [AuthGuard] },
+  { path: 'requestconsent', component: RequestConsentComponent, canActivate: [AuthGuard] },
+  { path: 'createpatient', component: CreatePatientComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'createpatientrecord', component: CreatePatientRecordComponent, canActivate: [AuthGuard]},
 
 ];

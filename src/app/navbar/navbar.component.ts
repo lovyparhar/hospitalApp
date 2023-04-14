@@ -30,16 +30,6 @@ export class NavbarComponent implements OnInit {
         this.globalservice.eraseCredentials();
         this.globalservice.clearRecords();
         this.router.navigate(['']);
-        // this.authenticationService.logout()
-        // .subscribe(
-        //   result => {
-        //     this.globals.eraseCredentials();
-        //     this.modalService.displayOkDialog(`<div class="text-success">Logout Success</div>`, <string>result);
-        //   },
-        //   error => {
-        //     console.log(error);
-        //     this.modalService.displayOkDialog(`<div class="text-danger">Logout Error</div>`, '');
-        //   });
       }      
     });
   }
