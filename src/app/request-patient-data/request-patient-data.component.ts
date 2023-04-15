@@ -138,5 +138,7 @@ export class RequestPatientDataComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.consentService.clearRecords().subscribe((data) => {});
+  }
 }
