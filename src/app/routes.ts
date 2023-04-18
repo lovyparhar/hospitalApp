@@ -10,11 +10,12 @@ import { PendingRecordsComponent } from './pending-records/pending-records.compo
 import { RequestConsentComponent } from './request-consent/request-consent.component';
 import { RequestPatientDataComponent } from './request-patient-data/request-patient-data.component';
 import { AuthGuard } from './auth.gaurd';
+import { LoggedInGaurd } from './loggedin.gaurd';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: HomeComponent },
-  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [LoggedInGaurd] },
+  { path: 'login', component: HomeComponent, canActivate: [LoggedInGaurd] },
+  { path: '', component: HomeComponent, canActivate: [LoggedInGaurd] },
   { path: 'pendingrecords', component: PendingRecordsComponent, canActivate: [AuthGuard] },
   { path: 'addrecords', component: AddRecordsComponent, canActivate: [AuthGuard] },
   { path: 'requestpatientdata', component: RequestPatientDataComponent, canActivate: [AuthGuard] },
