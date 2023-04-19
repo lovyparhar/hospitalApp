@@ -11,6 +11,7 @@ import { RequestConsentComponent } from './request-consent/request-consent.compo
 import { RequestPatientDataComponent } from './request-patient-data/request-patient-data.component';
 import { AuthGuard } from './auth.gaurd';
 import { LoggedInGaurd } from './loggedin.gaurd';
+import { CompleteRecordComponent } from './complete-record/complete-record.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [LoggedInGaurd] },
@@ -25,6 +26,9 @@ export const routes: Routes = [
   { path: 'requestconsent', component: RequestConsentComponent, canActivate: [AuthGuard] },
 
   { path: 'createpatient', component: CreatePatientComponent, canActivate: [AuthGuard] },
+  { path: 'completerecord', component: CompleteRecordComponent, canActivate: [AuthGuard] },
+
   { path: 'createpatientrecord', component: CreatePatientRecordComponent, canActivate: [AuthGuard]},
+
 
 ];

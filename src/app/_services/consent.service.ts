@@ -24,7 +24,8 @@ export class ConsentService {
       postUrl,
       {
         recordSenderHospital: sourceHospitalId,
-        recordRequesterHospital: this.globalService.currentCredentials.hospitalName,
+        recordRequesterHospital:
+          this.globalService.currentCredentials.hospitalName,
         patientId: aadhar,
         department: department,
         endTime: endDate,
@@ -64,7 +65,8 @@ export class ConsentService {
     prescription: string,
     aadhar: string
   ) {
-    let postUrl = this.globalService.hospitalRootUrl + '/doctor/doctor-add-record';
+    let postUrl =
+      this.globalService.hospitalRootUrl + '/doctor/doctor-add-record';
     console.log(postUrl);
 
     return this.http
@@ -89,7 +91,8 @@ export class ConsentService {
     aadhar: string,
     doctor: string
   ) {
-    let postUrl = this.globalService.hospitalRootUrl + '/staff/staff-add-record';
+    let postUrl =
+      this.globalService.hospitalRootUrl + '/staff/staff-add-record';
     console.log(postUrl);
 
     return this.http
@@ -98,7 +101,7 @@ export class ConsentService {
         department: department,
         aadhar: aadhar,
         address: address,
-        doctorId: doctor
+        doctorId: doctor,
       })
       .pipe(
         map((credentials) => {
@@ -111,30 +114,37 @@ export class ConsentService {
       this.globalService.hospitalRootUrl + '/doctor/getApprovedConsents';
     return this.http.get(postUrl);
   }
-  request_data(recordSenderHospital: string, department: string, aadhar: string) {
+  request_data(
+    recordSenderHospital: string,
+    department: string,
+    aadhar: string
+  ) {
     if (!this.globalService.currentCredentials) return;
 
     let postUrl = this.globalService.hospitalRootUrl + '/doctor/request-data';
     console.log(postUrl);
 
-    let recordRequesterHospital = this.globalService.currentCredentials.hospitalName;
+    let recordRequesterHospital =
+      this.globalService.currentCredentials.hospitalName;
 
     return this.http.post<any>(postUrl, {
       patientId: aadhar,
       department: department,
       recordRequesterHospital: recordRequesterHospital,
       recordSenderHospital: recordSenderHospital,
-      requestTime: "2023-03-03T23:24:00"
+      requestTime: '2023-03-03T23:24:00',
     });
   }
   fetchData() {
-    let postUrl =
-      this.globalService.hospitalRootUrl + '/doctor/getRecords';
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/getRecords';
     return this.http.get(postUrl);
   }
   clearRecords() {
-    let postUrl =
-      this.globalService.hospitalRootUrl + '/doctor/clear-records';
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/clear-records';
+    return this.http.get(postUrl);
+  }
+  getPendingRecords() {
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/get-pending-records';
     return this.http.get(postUrl);
   }
 }
