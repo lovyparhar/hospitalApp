@@ -33,6 +33,7 @@ export class AddRecordsComponent implements OnInit {
     private modalService: ModalService
   ) {
     this.createForm();
+    this.state = this.router.getCurrentNavigation()?.extras.state;
   }
   createForm(): void {
     this.verfiyPatientForm = this.formBuilder.group({
@@ -79,13 +80,25 @@ export class AddRecordsComponent implements OnInit {
     this.authenticationService.verifyPatient(aadhar).subscribe(
       (data: any) => {
         if (!data.message) {
-          this.modalService.displayOkDialog('Patient Successfully Verified!', '');
-          this.router.navigate(['/createpatientrecord'], {state : data});
-        }
-        else {
-          this.modalService.displayOkDialog('Error in verifying patient!',
-          'Please create a new user.');
-          this.router.navigate(['/createpatient'], {state : aadhar});
+          this.modalService.displayOkDialog(
+            'Patient Successfully Verified!',
+            ''
+          );
+          if (this.state) {
+            this.router.navigate(['/createpatientrecord'], {
+              state: { data: data, role: this.state }, //sending patient data and role.
+            });
+          }
+        } else {
+          this.modalService.displayOkDialog(
+            'Error in verifying patient!',
+            'Please create a new user.'
+          );
+          if (this.state) {
+            this.router.navigate(['/createpatient'], {
+              state: { aadhar: aadhar, role: this.state }, //sending aadhaar and role.
+            });
+          }
         }
       },
       (error: any) => {

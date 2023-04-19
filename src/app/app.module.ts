@@ -53,7 +53,7 @@ import { CreatePatientRecordComponent } from './create-patient-record/create-pat
     ApprovedConsentsComponent,
     RequestConsentComponent,
     CreatePatientComponent,
-    CreatePatientRecordComponent
+    CreatePatientRecordComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,13 +16,15 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [LoggedInGaurd] },
   { path: 'login', component: HomeComponent, canActivate: [LoggedInGaurd] },
   { path: '', component: HomeComponent, canActivate: [LoggedInGaurd] },
+
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'pendingrecords', component: PendingRecordsComponent, canActivate: [AuthGuard] },
   { path: 'addrecords', component: AddRecordsComponent, canActivate: [AuthGuard] },
   { path: 'requestpatientdata', component: RequestPatientDataComponent, canActivate: [AuthGuard] },
   { path: 'approvedconsents', component: ApprovedConsentsComponent, canActivate: [AuthGuard] },
   { path: 'requestconsent', component: RequestConsentComponent, canActivate: [AuthGuard] },
+
   { path: 'createpatient', component: CreatePatientComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'createpatientrecord', component: CreatePatientRecordComponent, canActivate: [AuthGuard]},
 
 ];

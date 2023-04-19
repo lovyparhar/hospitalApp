@@ -19,11 +19,11 @@ export class CreatePatientRecordComponent implements OnInit {
     department: '',
     address: '',
     diagnosis: '',
+    doctor: '',
     prescription: '',
   };
 
   validationMessages: any = {
-  
     department: {
       required: 'Last Name is required.',
     },
@@ -37,7 +37,7 @@ export class CreatePatientRecordComponent implements OnInit {
       required: 'diagnosis is required.',
     },
   };
-  departments : any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
+  departments: any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
@@ -47,7 +47,7 @@ export class CreatePatientRecordComponent implements OnInit {
     private modalService: ModalService
   ) {
     this.createForm();
-    this.state = this.router.getCurrentNavigation()?.extras.state;
+    this.state = this.router.getCurrentNavigation()?.extras.state; // data and role.
     console.log(this.state);
   }
   createForm(): void {
@@ -55,12 +55,11 @@ export class CreatePatientRecordComponent implements OnInit {
       department: ['', [Validators.required]],
       address: ['', [Validators.required]],
       diagnosis: ['', [Validators.required]],
+      doctor: ['', [Validators.required]],
       prescription: ['', [Validators.required]],
     });
 
-    this.recordForm.valueChanges.subscribe((data) =>
-      this.onValueChanged(data)
-    );
+    this.recordForm.valueChanges.subscribe((data) => this.onValueChanged(data));
 
     this.onValueChanged(); // (re)set form validation messages
   }
@@ -89,13 +88,13 @@ export class CreatePatientRecordComponent implements OnInit {
   }
 
   record() {
-    let hospitalName = "H1";
+    let hospitalName = this.globalService.currentCredentials.hospitalName;
     let department = this.recordForm.value.department;
     let address = this.recordForm.value.address;
     let diagnosis = this.recordForm.value.diagnosis;
     let prescription = this.recordForm.value.prescription;
-    let aadhar = this.state.aadhar;
-
+    let doctor = this.recordForm.value.doctor;
+    let aadhar = this.state.data.aadhar;
 
     this.recordFormDirective.resetForm();
     this.recordForm.reset({
@@ -103,21 +102,53 @@ export class CreatePatientRecordComponent implements OnInit {
       address: '',
       diagnosis: '',
       prescription: '',
+      doctor: '',
     });
 
-    this.consentservice
-      .record(hospitalName, department, diagnosis, address, prescription, aadhar)
+    if (this.state.role.state === 'DOCTOR') {
+      this.consentservice
+        .record(
+          hospitalName,
+          department,
+          diagnosis,
+          address,
+          prescription,
+          aadhar
+        )
+        .subscribe(
+          (data: any) => {
+            this.modalService.displayOkDialog(
+              'Record Created Successfully!',
+              ''
+            );
+            this.router.navigate(['/dashboard']);
+          },
+          (error: any) => {
+            this.modalService.displayError(error);
+          }
+        );
+    }
+    else
+    {
+      this.consentservice
+      .recordbystaff(
+        hospitalName,
+        department,
+        address,
+        aadhar,
+        doctor,
+      )
       .subscribe(
         (data: any) => {
-          this.modalService.displayOkDialog('Record Created Successfully!', '');
-            this.router.navigate(['/dashboard']);
-   
+          this.modalService.displayOkDialog('Record Created Successfully!', 'Forwarded to DoctorID : ' + doctor);
+          this.router.navigate(['/dashboard']);
         },
         (error: any) => {
           this.modalService.displayError(error);
         }
       );
+    }
   }
-  
+
   ngOnInit(): void {}
 }

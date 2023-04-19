@@ -15,7 +15,7 @@ import { ConsentService } from '../_services/consent.service';
 export class CreatePatientComponent implements OnInit {
   registerForm!: FormGroup;
   @ViewChild('fform') registerFormDirective!: any;
-  aadhar: any;
+  state: any;
   formErrors: any = {
     firstName: '',
     lastName: '',
@@ -44,7 +44,7 @@ export class CreatePatientComponent implements OnInit {
     private datePipe: DatePipe
   ) {
     this.createForm();
-    this.aadhar = this.router.getCurrentNavigation()?.extras.state;
+    this.state = this.router.getCurrentNavigation()?.extras.state;
   }
   createForm(): void {
     this.registerForm = this.formBuilder.group({
@@ -87,10 +87,12 @@ export class CreatePatientComponent implements OnInit {
   register() {
     let firstName = this.registerForm.value.firstName;
     let lastName = this.registerForm.value.lastName;
-    let aadhar = this.aadhar;
+    let aadhar = this.state.aadhar;
     let dob = this.registerForm.value.dob;
     let myDate: Date = dob;
-    const isodob = this.datePipe.transform(myDate, 'yyyy-MM-ddTHH:mm:ss.SSSZ')?.slice(0,19) as string;
+    const isodob = this.datePipe
+      .transform(myDate, 'yyyy-MM-ddTHH:mm:ss.SSSZ')
+      ?.slice(0, 19) as string;
     let phoneNumber = this.registerForm.value.phoneNumber;
 
     this.registerFormDirective.resetForm();
@@ -114,7 +116,9 @@ export class CreatePatientComponent implements OnInit {
       );
   }
   postregister(data: any) {
-    this.router.navigate(['createpatientrecord'], { state: data });
+    this.router.navigate(['createpatientrecord'], {
+      state: { data: data, role: this.state.role },
+    });
   }
   ngOnInit(): void {}
 }

@@ -24,7 +24,7 @@ export class ConsentService {
       postUrl,
       {
         recordSenderHospital: sourceHospitalId,
-        recordRequesterHospital: 'H1',
+        recordRequesterHospital: this.globalService.currentCredentials.hospitalName,
         patientId: aadhar,
         department: department,
         endTime: endDate,
@@ -64,7 +64,7 @@ export class ConsentService {
     prescription: string,
     aadhar: string
   ) {
-    let postUrl = this.globalService.hospitalRootUrl + '/doctor/addrecord';
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/doctor-add-record';
     console.log(postUrl);
 
     return this.http
@@ -75,6 +75,30 @@ export class ConsentService {
         address: address,
         diagnosis: diagnosis,
         prescription: prescription,
+      })
+      .pipe(
+        map((credentials) => {
+          return credentials;
+        })
+      );
+  }
+  recordbystaff(
+    hospitalName: string,
+    department: string,
+    address: string,
+    aadhar: string,
+    doctor: string
+  ) {
+    let postUrl = this.globalService.hospitalRootUrl + '/staff/staff-add-record';
+    console.log(postUrl);
+
+    return this.http
+      .post<any>(postUrl, {
+        hospitalName: hospitalName,
+        department: department,
+        aadhar: aadhar,
+        address: address,
+        doctorId: doctor
       })
       .pipe(
         map((credentials) => {
@@ -93,7 +117,7 @@ export class ConsentService {
     let postUrl = this.globalService.hospitalRootUrl + '/doctor/request-data';
     console.log(postUrl);
 
-    let recordRequesterHospital = 'H1';
+    let recordRequesterHospital = this.globalService.currentCredentials.hospitalName;
 
     return this.http.post<any>(postUrl, {
       patientId: aadhar,

@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0">
-                    {{ this.state.firstName }}
+                    {{ this.state.data.firstName }}
                   </p>
                 </div>
               </div>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0">
-                    {{ this.state.lastName }}
+                    {{ this.state.data.lastName }}
                   </p>
                 </div>
               </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0">
-                    {{ this.state.aadhar }}
+                    {{ this.state.data.aadhar }}
                   </p>
                 </div>
               </div>
@@ -62,19 +62,19 @@
 
               <div class="col-12">
                 <select
-                    name="department"
-                    formControlName="department"
-                    required
-                    [ngClass]="{
-                      'form-control': true,
-                      'is-invalid': formErrors.department
-                    }"
-                  >
-                    <option disabled>Select Department</option>
-                    <option *ngFor="let dept of departments">
-                      {{ dept }}
-                    </option>
-                  </select>
+                  name="department"
+                  formControlName="department"
+                  required
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': formErrors.department
+                  }"
+                >
+                  <option disabled>Select Department</option>
+                  <option *ngFor="let dept of departments">
+                    {{ dept }}
+                  </option>
+                </select>
               </div>
               <span *ngIf="formErrors.department" class="text-danger">
                 {{ formErrors.department }}
@@ -107,6 +107,7 @@
             </div>
 
             <div
+              *ngIf="this.state.role.state === 'DOCTOR'"
               class="form-group row form-row align-items-center justify-content-center"
             >
               <div class="col-12 form-label">
@@ -131,6 +132,32 @@
               </span>
             </div>
             <div
+              *ngIf="this.state.role.state === 'STAFF'"
+              class="form-group row form-row align-items-center justify-content-center"
+            >
+              <div class="col-12 form-label">
+                <label for="doctor">Assigned Doctor</label>
+              </div>
+
+              <div class="col-12">
+                <input
+                  name="doctor"
+                  type="text"
+                  formControlName="doctor"
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': formErrors.doctor
+                  }"
+                  id="doctor"
+                  placeholder="Doctor Name"
+                />
+              </div>
+              <span *ngIf="formErrors.doctor" class="text-danger">
+                {{ formErrors.doctor }}
+              </span>
+            </div>
+            <div
+              *ngIf="this.state.role.state === 'DOCTOR'"
               class="form-group row form-row align-items-center justify-content-center"
             >
               <div class="col-12 form-label">
@@ -159,7 +186,7 @@
                 <button
                   type="submit"
                   class="btn btn-info col-12"
-                  [disabled]="recordForm.invalid"
+                  
                 >
                   Submit Record
                 </button>

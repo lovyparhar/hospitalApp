@@ -1,57 +1,86 @@
 <div class="container">
   <div class="row">
-    <div *ngIf="globalservice.currentCredentials.role === 'DOCTOR'" class="col-md-6">
+    <div
+      *ngIf="globalservice.currentCredentials.role === 'DOCTOR'"
+      class="col-md-6"
+    >
       <div class="row justify-content-center row-content p-2">
         <div class="col-md-6">
-          <a class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/pendingrecords">
+          <a
+            class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold"
+            routerLink="/pendingrecords"
+          >
             <div class="card-body text-center">Pending Records</div>
           </a>
         </div>
 
         <div class="col-md-6">
-          <a class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/addrecords">
+          <a
+            class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold"
+            [routerLink]="['/addrecords']"
+            [state]="{ state: globalservice.currentCredentials.role }"
+          >
             <div class="card-body text-center">Add Records</div>
           </a>
         </div>
-
       </div>
       <div class="row justify-content-center row-content p-2">
-
         <div class="col-md-6">
-          <button class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/requestpatientdata">
+          <button
+            class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold"
+            routerLink="/requestpatientdata"
+          >
             <div class="card-body text-center">Request Patient Data</div>
           </button>
         </div>
 
         <div class="col-md-6">
-          <button class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold" routerLink="/requestconsent">
+          <button
+            class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold"
+            routerLink="/requestconsent"
+          >
             <div class="card-body text-center">Request Consent</div>
           </button>
-          
         </div>
-
       </div>
       <div class="row justify-content-center row-content p-2">
         <!-- <div class="col"> -->
-          <button class="btn btn-info col-6 position-relative p-3 mb-5 text-white fw-bold" routerLink="/approvedconsents">
-            <div class="card-body text-center">Approved Consents</div>
-            <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger bg-danger">
+        <button
+          class="btn btn-info col-6 position-relative p-3 mb-5 text-white fw-bold"
+          routerLink="/approvedconsents"
+        >
+          <div class="card-body text-center">Approved Consents</div>
+          <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger bg-danger">
               99+
               <span class="visually-hidden">unread messages</span>
           </span> -->
-          </button>
+        </button>
         <!-- </div> -->
-
       </div>
     </div>
-    <div *ngIf="globalservice.currentCredentials.role === 'STAFF'" class="col-md-6">
-      <div class="row justify-content-center row-content">
-        <a class="col-md-6 card" routerLink="/pendingrecords">
-          <div class="card-body text-center">Pending Records</div>
-        </a>
-        <a class="col-md-6 card" routerLink="/addrecords">
-          <div class="card-body text-center">Add Records</div>
-        </a>
+    <div
+      *ngIf="globalservice.currentCredentials.role === 'STAFF'"
+      class="col-md-6"
+    >
+      <div class="row justify-content-center row-content p-2">
+        <div class="col-md-6">
+          <a
+            class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold"
+            routerLink="/pendingrecords"
+          >
+            <div class="card-body text-center">Pending Records</div>
+          </a>
+        </div>
+
+        <div class="col-md-6">
+          <a
+            class="btn btn-info col-12 position-relative p-3 mb-5 text-white fw-bold"
+            [routerLink]="['/addrecords']"
+            [state]="{ state: globalservice.currentCredentials.role }"
+          >
+            <div class="card-body text-center">Add Records</div>
+          </a>
+        </div>
       </div>
     </div>
     <div class="col-md-6">
