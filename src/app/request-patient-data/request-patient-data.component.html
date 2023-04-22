@@ -12,7 +12,6 @@
             novalidate
             [formGroup]="getRecordsForm"
             #fform="ngForm"
-            (ngSubmit)="getRecords()"
           >
             <div
               class="form-group row form-row align-items-center justify-content-center"
@@ -97,6 +96,10 @@
                 {{ formErrors.department }}
               </span>
             </div>
+            
+            <!-- <div class="form-group row form-row ms-2"> -->
+              Emergency situation? Fill form and click <button class="btn border-0 text-primary ps-0 pe-0" (click)="getEmergencyRecords()" [disabled]="getRecordsForm.invalid">here</button> for emergency data request.
+            <!-- </div> -->
 
             <div class="form-group row form-row mt-3">
               <div class="col-12">
@@ -104,6 +107,7 @@
                   type="submit"
                   class="btn btn-info col-12 text-center text-white"
                   [disabled]="getRecordsForm.invalid"
+                  (submit)="getRecords()"
                 >
                   Get Records
                 </button>

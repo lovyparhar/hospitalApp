@@ -138,7 +138,44 @@ export class RequestPatientDataComponent implements OnInit {
       });
   }
 
+  getEmergencyRecords() {
+    let title: string = `<div class="alert">Confirm</div>`
+    let message: string = `Do you want to request data under emergency circumstances. This activity will be logged.`;
+
+    this.modalService.confirmationDialog("Confirm", message).subscribe(
+      (result) => {
+        if (result == "y") {
+          this.consentService
+            .request_emergency_data(
+              this.getRecordsForm.value.sourcehospital,
+              this.getRecordsForm.value.department,
+              this.getRecordsForm.value.aadhar
+            )
+            ?.subscribe(
+              (data) => {
+                this.modalService.displayOkDialog(
+                  'Data Arriving soon.',
+                  'Please use refresh button below to get records '
+                );
+                this.getRecordsFormDirective.resetForm();
+                this.getRecordsForm.reset({
+                  sourcehospital: '',
+                  department: '',
+                });
+              },
+              (error) => {
+                this.modalService.displayError(error);
+                if (error.status === 404) {
+                  this.router.navigate(['/requestconsent']);
+                }
+              }
+            );
+        }
+      }
+    )
+  }
+
   ngOnInit(): void {
-    this.consentService.clearRecords().subscribe((data) => {});
+    this.consentService.clearRecords().subscribe((data) => { });
   }
 }

@@ -132,11 +132,32 @@ export class ConsentService {
       department: department,
       recordRequesterHospital: recordRequesterHospital,
       recordSenderHospital: recordSenderHospital,
-      requestTime: '2023-03-03T23:24:00',
+      requestTime: '',
+    });
+  }
+  request_emergency_data(
+    recordSenderHospital: string,
+    department: string,
+    aadhar: string
+  ) {
+    if (!this.globalService.currentCredentials) return;
+
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/request-emergency-data';
+    console.log(postUrl);
+
+    let recordRequesterHospital =
+      this.globalService.currentCredentials.hospitalName;
+
+    return this.http.post<any>(postUrl, {
+      patientId: aadhar,
+      department: department,
+      recordRequesterHospital: recordRequesterHospital,
+      recordSenderHospital: recordSenderHospital,
+      requestTime: '',
     });
   }
   fetchData() {
-    let postUrl = this.globalService.hospitalRootUrl + '/doctor/getRecords';
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/get-received-records';
     return this.http.get(postUrl);
   }
   clearRecords() {
