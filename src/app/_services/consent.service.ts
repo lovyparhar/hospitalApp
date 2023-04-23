@@ -132,7 +132,7 @@ export class ConsentService {
       department: department,
       recordRequesterHospital: recordRequesterHospital,
       recordSenderHospital: recordSenderHospital,
-      requestTime: '',
+      requestTime: '2023-03-26T23:24:00',
     });
   }
   request_emergency_data(
@@ -153,7 +153,7 @@ export class ConsentService {
       department: department,
       recordRequesterHospital: recordRequesterHospital,
       recordSenderHospital: recordSenderHospital,
-      requestTime: '',
+      requestTime: '2023-03-26T23:24:00',
     });
   }
   fetchData() {
