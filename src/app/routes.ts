@@ -12,6 +12,7 @@ import { RequestPatientDataComponent } from './request-patient-data/request-pati
 import { AuthGuard } from './auth.gaurd';
 import { LoggedInGaurd } from './loggedin.gaurd';
 import { CompleteRecordComponent } from './complete-record/complete-record.component';
+import { ConsentRequestOTPComponent } from './consent-request-otp/consent-request-otp.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [LoggedInGaurd] },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'requestpatientdata', component: RequestPatientDataComponent, canActivate: [AuthGuard] },
   { path: 'approvedconsents', component: ApprovedConsentsComponent, canActivate: [AuthGuard] },
   { path: 'requestconsent', component: RequestConsentComponent, canActivate: [AuthGuard] },
+  { path: 'consent-request-otp', component: ConsentRequestOTPComponent, canActivate: [AuthGuard] },
 
   { path: 'createpatient', component: CreatePatientComponent, canActivate: [AuthGuard] },
   { path: 'completerecord', component: CompleteRecordComponent, canActivate: [AuthGuard] },

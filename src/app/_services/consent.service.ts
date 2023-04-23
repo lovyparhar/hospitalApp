@@ -7,7 +7,7 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class ConsentService {
-  constructor(private globalService: GlobalService, private http: HttpClient) {}
+  constructor(private globalService: GlobalService, private http: HttpClient) { }
 
   compose_consent(
     sourceHospitalId: string,
@@ -167,5 +167,62 @@ export class ConsentService {
   getPendingRecords() {
     let postUrl = this.globalService.hospitalRootUrl + '/doctor/get-pending-records';
     return this.http.get(postUrl);
+  }
+
+  getConsentRequestPatientOTP(
+    sourceHospitalId: string,
+    department: string,
+    aadhar: string,
+    endDate: string
+  ) {
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/get-consent-patient-request-otp';
+
+    return this.http.post(
+      postUrl,
+      {
+        recordSenderHospital: sourceHospitalId,
+        recordRequesterHospital: this.globalService.currentCredentials.hospitalName,
+        patientId: aadhar,
+        department: department,
+        endTime: endDate,
+      },
+      { responseType: 'text' }
+    );
+  }
+
+  getConsentRequestGuardianOTP(
+    sourceHospitalId: string,
+    department: string,
+    aadhar: string,
+    endDate: string
+  ) {
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/get-consent-guardian-request-otp';
+
+    return this.http.post(
+      postUrl,
+      {
+        recordSenderHospital: sourceHospitalId,
+        recordRequesterHospital: this.globalService.currentCredentials.hospitalName,
+        patientId: aadhar,
+        department: department,
+        endTime: endDate,
+      },
+      { responseType: 'text' }
+    );
+  }
+
+  verifyConsentRequestOTP(
+    patientId: string,
+    otp: string
+  ) {
+    let postUrl = this.globalService.hospitalRootUrl + '/doctor/verify-consent-request-otp';
+
+    return this.http.post(postUrl,
+      {
+        patientId: patientId,
+        otp: otp
+      },
+      { responseType: 'text' }
+      );
   }
 }

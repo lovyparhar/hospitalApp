@@ -102,7 +102,33 @@ export class RequestConsentComponent implements OnInit {
     let myDate: Date = this.consentForm.value.enddate;
     const enddate = this.datePipe.transform(myDate, 'yyyy-MM-ddTHH:mm:ss') as string;
 
-    this.consentService
+    let noPatientApp: boolean = this.consentForm.value.noPatientApp;
+    let useGuardianOTP: boolean = this.consentForm.value.useGuardianOTP;
+
+    if(useGuardianOTP) {
+      this.consentService
+      .getConsentRequestGuardianOTP(
+        this.consentForm.value.sourcehospital,
+        this.consentForm.value.department,
+        this.consentForm.value.aadhar,
+        enddate
+      )?.subscribe((data) => {
+        this.router.navigate(['/consent-request-otp'], {state: {patientId: this.consentForm.value.aadhar}});
+      });
+    }
+    else if(noPatientApp) {
+      this.consentService
+      .getConsentRequestPatientOTP(
+        this.consentForm.value.sourcehospital,
+        this.consentForm.value.department,
+        this.consentForm.value.aadhar,
+        enddate
+      )?.subscribe((data) => {
+        this.router.navigate(['/consent-request-otp'], {state: {patientId: this.consentForm.value.aadhar}});
+      });
+    }
+    else {
+      this.consentService
       .compose_consent(
         this.consentForm.value.sourcehospital,
         this.consentForm.value.department,
@@ -113,6 +139,8 @@ export class RequestConsentComponent implements OnInit {
         this.modalService.displayOkDialog('Consent Created Successfully!', '');
         this.router.navigate(['/dashboard']);
       });
+    }
+    
   }
 
   ngOnInit(): void {}

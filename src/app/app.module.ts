@@ -38,6 +38,7 @@ import { RequestConsentComponent } from './request-consent/request-consent.compo
 import { CreatePatientComponent } from './create-patient/create-patient.component';
 import { CreatePatientRecordComponent } from './create-patient-record/create-patient-record.component';
 import { CompleteRecordComponent } from './complete-record/complete-record.component';
+import { ConsentRequestOTPComponent } from './consent-request-otp/consent-request-otp.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CompleteRecordComponent } from './complete-record/complete-record.compo
     CreatePatientComponent,
     CreatePatientRecordComponent,
     CompleteRecordComponent,
+    ConsentRequestOTPComponent,
   ],
   imports: [
     BrowserModule,
