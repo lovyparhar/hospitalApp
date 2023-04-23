@@ -62,6 +62,8 @@ export class RequestConsentComponent implements OnInit {
       department: ['', [Validators.required]],
       aadhar: ['', [Validators.required]],
       enddate: ['', [Validators.required]],
+      noPatientApp: [false],
+      useGuardianOTP: [false]
     });
 
     this.consentForm.valueChanges.subscribe((data) =>
@@ -93,6 +95,8 @@ export class RequestConsentComponent implements OnInit {
       }
     }
   }
+
+
   composeConsent() {
     
     let myDate: Date = this.consentForm.value.enddate;
