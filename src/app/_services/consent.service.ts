@@ -41,7 +41,7 @@ export class ConsentService {
     dateOfBirth: string
   ) {
     let postUrl =
-      this.globalService.demographicRootUrl + '/user-demographic/add-user';
+      this.globalService.hospitalRootUrl + '/auth/add-user-demographic';
 
     return this.http
       .post<any>(postUrl, {
@@ -84,6 +84,35 @@ export class ConsentService {
         })
       );
   }
+
+  update_record(
+    hospitalName: string,
+    department: string,
+    diagnosis: string,
+    address: string,
+    prescription: string,
+    aadhar: string
+  ) {
+    let postUrl =
+      this.globalService.hospitalRootUrl + '/doctor/doctor-update-record';
+    console.log(postUrl);
+
+    return this.http
+      .post<any>(postUrl, {
+        hospitalName: hospitalName,
+        department: department,
+        aadhar: aadhar,
+        address: address,
+        diagnosis: diagnosis,
+        prescription: prescription,
+      })
+      .pipe(
+        map((credentials) => {
+          return credentials;
+        })
+      );
+  }
+
   recordbystaff(
     hospitalName: string,
     department: string,

@@ -108,7 +108,7 @@ export class CreatePatientComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.postregister(data);
-          this.modalService.displayOkDialog('register Successful!', '');
+          this.modalService.displayOkDialog('Patient Registered Successfully!', '');
         },
         (error: any) => {
           console.log(error);

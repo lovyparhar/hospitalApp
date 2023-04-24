@@ -91,7 +91,7 @@ export class CompleteRecordComponent implements OnInit {
       prescription: '',
     });
     this.consentservice
-        .record(
+        .update_record(
           hospitalName,
           department,
           diagnosis,

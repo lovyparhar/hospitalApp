@@ -65,7 +65,7 @@ export class AuthenticationService {
   }
   verifyPatient(aadhar: string) {
     let postUrl =
-      this.globalService.demographicRootUrl + '/user-demographic/find-user';
+      this.globalService.hospitalRootUrl + '/auth/get-user-demographic';
     console.log(postUrl, aadhar);
 
     return this.http.post<any>(postUrl, { aadhar: aadhar });
