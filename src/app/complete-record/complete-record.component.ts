@@ -84,6 +84,8 @@ export class CompleteRecordComponent implements OnInit {
     let diagnosis = this.recordForm.value.diagnosis;
     let prescription = this.recordForm.value.prescription;
     let aadhar = this.state.aadhar;
+    let firstName = this.state.firstName;
+    let lastName = this.state.lastName;
 
     this.recordFormDirective.resetForm();
     this.recordForm.reset({
@@ -91,27 +93,25 @@ export class CompleteRecordComponent implements OnInit {
       prescription: '',
     });
     this.consentservice
-        .update_record(
-          hospitalName,
-          department,
-          diagnosis,
-          address,
-          prescription,
-          aadhar
-        )
-        .subscribe(
-          (data: any) => {
-            this.modalService.displayOkDialog(
-              'Record Created Successfully!',
-              ''
-            );
-            this.router.navigate(['/dashboard']);
-          },
-          (error: any) => {
-            this.modalService.displayError(error);
-          }
-        );
-
+      .update_record(
+        hospitalName,
+        department,
+        diagnosis,
+        address,
+        prescription,
+        aadhar,
+        firstName,
+        lastName
+      )
+      .subscribe(
+        (data: any) => {
+          this.modalService.displayOkDialog('Record Created Successfully!', '');
+          this.router.navigate(['/dashboard']);
+        },
+        (error: any) => {
+          this.modalService.displayError(error);
+        }
+      );
   }
   ngOnInit(): void {}
 }

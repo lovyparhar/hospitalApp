@@ -95,6 +95,8 @@ export class CreatePatientRecordComponent implements OnInit {
     let prescription = this.recordForm.value.prescription;
     let doctor = this.recordForm.value.doctor;
     let aadhar = this.state.data.aadhar;
+    let firstName = this.state.data.firstName;
+    let lastName = this.state.data.lastName;
 
     this.recordFormDirective.resetForm();
     this.recordForm.reset({
@@ -113,7 +115,9 @@ export class CreatePatientRecordComponent implements OnInit {
           diagnosis,
           address,
           prescription,
-          aadhar
+          aadhar,
+          firstName,
+          lastName
         )
         .subscribe(
           (data: any) => {
@@ -127,26 +131,29 @@ export class CreatePatientRecordComponent implements OnInit {
             this.modalService.displayError(error);
           }
         );
-    }
-    else
-    {
+    } else {
       this.consentservice
-      .recordbystaff(
-        hospitalName,
-        department,
-        address,
-        aadhar,
-        doctor,
-      )
-      .subscribe(
-        (data: any) => {
-          this.modalService.displayOkDialog('Record Created Successfully!', 'Forwarded to DoctorID : ' + doctor);
-          this.router.navigate(['/dashboard']);
-        },
-        (error: any) => {
-          this.modalService.displayError(error);
-        }
-      );
+        .recordbystaff(
+          hospitalName,
+          department,
+          address,
+          aadhar,
+          doctor,
+          firstName,
+          lastName
+        )
+        .subscribe(
+          (data: any) => {
+            this.modalService.displayOkDialog(
+              'Record Created Successfully!',
+              'Forwarded to DoctorID : ' + doctor
+            );
+            this.router.navigate(['/dashboard']);
+          },
+          (error: any) => {
+            this.modalService.displayError(error);
+          }
+        );
     }
   }
 
