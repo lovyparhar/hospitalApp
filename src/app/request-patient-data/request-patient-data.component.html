@@ -8,11 +8,7 @@
 
         <div class="card-body">
           <!-- FORM STARTS HERE -->
-          <form
-            novalidate
-            [formGroup]="getRecordsForm"
-            #fform="ngForm"
-          >
+          <form novalidate [formGroup]="getRecordsForm" #fform="ngForm">
             <div
               class="form-group row form-row align-items-center justify-content-center"
             >
@@ -96,9 +92,17 @@
                 {{ formErrors.department }}
               </span>
             </div>
-            
+
             <!-- <div class="form-group row form-row ms-2"> -->
-              Emergency situation? Fill form and click <button class="btn border-0 text-primary ps-0 pe-0" (click)="getEmergencyRecords()" [disabled]="getRecordsForm.invalid">here</button> for emergency data request.
+            Emergency situation? Fill form and click
+            <button
+              class="btn border-0 text-primary ps-0 pe-0"
+              (click)="getEmergencyRecords()"
+              [disabled]="getRecordsForm.invalid"
+            >
+              here
+            </button>
+            for emergency data request.
             <!-- </div> -->
 
             <div class="form-group row form-row mt-3">
@@ -125,7 +129,7 @@
   >
     <div class="col-md-8 mt-2">
       <div class="row p-3 m-2">
-        <h2 class = "col-md-3">Record List</h2>
+        <h2 class="col-md-3">Record List</h2>
         <button
           class="col-md-1 btn btn-info text-center text-white"
           (click)="fetchRecords()"
@@ -151,13 +155,21 @@
         <div class="card-body">
           <h5 class="card-title">Record number {{ i + 1 }}</h5>
           <ul class="list-group list-group-flush">
+            <li class="list-group-item">Aadhaar : {{ record.hospitalName }}</li>
             <li class="list-group-item">
-              Hospital : {{ record.hospitalName }}
+              First Name : {{ record.patientFirstName }}
+            </li>
+            <li class="list-group-item">
+              Last name : {{ record.patientLastName }}
+            </li>
+            <li class="list-group-item">Address : {{ record.address }}</li>
+            <hr />
+            <li class="list-group-item">
+              From Hospital : {{ record.hospitalName }}
             </li>
             <li class="list-group-item">
               Department : {{ record.department }}
             </li>
-            <li class="list-group-item">Address : {{ record.address }}</li>
             <li class="list-group-item">Diagnosis : {{ record.diagnosis }}</li>
             <li class="list-group-item">
               Prescription : {{ record.prescription }}

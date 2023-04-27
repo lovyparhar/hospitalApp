@@ -84,8 +84,8 @@ export class CompleteRecordComponent implements OnInit {
     let diagnosis = this.recordForm.value.diagnosis;
     let prescription = this.recordForm.value.prescription;
     let aadhar = this.state.aadhar;
-    let firstName = this.state.firstName;
-    let lastName = this.state.lastName;
+    let firstName = this.state.patientFirstName;
+    let lastName = this.state.patientLastName;
 
     this.recordFormDirective.resetForm();
     this.recordForm.reset({
