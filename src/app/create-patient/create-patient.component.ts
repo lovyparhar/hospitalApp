@@ -21,6 +21,9 @@ export class CreatePatientComponent implements OnInit {
     lastName: '',
     phoneNumber: '',
     dob: '',
+    godFatherName: '',
+    godFatherNumber: '',
+
   };
 
   validationMessages: any = {
@@ -32,6 +35,12 @@ export class CreatePatientComponent implements OnInit {
     },
     phoneNumber: {
       required: 'phoneNumber is required.',
+    },
+    godFatherName: {
+      required: 'Gaurdian Name is required.',
+    },
+    godFatherNumber: {
+      required: 'Gaurdian Phone Number is required.',
     },
   };
   constructor(
@@ -52,6 +61,9 @@ export class CreatePatientComponent implements OnInit {
       lastName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
       dob: ['', [Validators.required]],
+      godFatherName: ['', [Validators.required]],
+      godFatherNumber: ['', [Validators.required]],
+
     });
 
     this.registerForm.valueChanges.subscribe((data) =>
@@ -89,6 +101,10 @@ export class CreatePatientComponent implements OnInit {
     let lastName = this.registerForm.value.lastName;
     let aadhar = this.state.aadhar;
     let dob = this.registerForm.value.dob;
+    let godFatherName = this.registerForm.value.godFatherName;
+    let godFatherNumber = this.registerForm.value.godFatherNumber;
+
+
     let myDate: Date = dob;
     const isodob = this.datePipe
       .transform(myDate, 'yyyy-MM-ddTHH:mm:ss.SSSZ')
@@ -101,10 +117,12 @@ export class CreatePatientComponent implements OnInit {
       lastName: '',
       phoneNumber: '',
       dob: '',
+      godFatherName: '',
+      godFatherNumber: ''
     });
 
     this.consentservice
-      .adduser(firstName, lastName, aadhar, phoneNumber, isodob)
+      .adduser(firstName, lastName, aadhar, phoneNumber, isodob, godFatherName, godFatherNumber)
       .subscribe(
         (data: any) => {
           this.postregister(data);
@@ -112,6 +130,7 @@ export class CreatePatientComponent implements OnInit {
         },
         (error: any) => {
           console.log(error);
+          this.router.navigate(['createpatient'], {state: this.state});
         }
       );
   }
