@@ -33,6 +33,31 @@ export class ConsentService {
       { responseType: 'text' }
     );
   }
+  checkActiveConsent(
+    sourceHospitalId: string,
+    department: string,
+    aadhar: string
+  ) {
+    if (!this.globalService.currentCredentials) return;
+
+    let postUrl =
+      this.globalService.hospitalRootUrl +
+      '/doctor/get-existing-active-consents';
+
+    return this.http
+      .post<any>(postUrl, {
+        sourceHospitalId: sourceHospitalId,
+        destinationHospitalId:
+          this.globalService.currentCredentials.hospitalName,
+        patientId: aadhar,
+        department: department,
+      })
+      .pipe(
+        map((credentials) => {
+          return credentials;
+        })
+      );
+  }
   adduser(
     firstname: string,
     lastname: string,

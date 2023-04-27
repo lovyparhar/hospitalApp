@@ -1,9 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
@@ -43,7 +39,7 @@ export class RequestConsentComponent implements OnInit {
     },
   };
   sourceHospitals: any = ['All hospitals', 'H1', 'H2', 'H3'];
-  departments : any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
+  departments: any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -63,7 +59,7 @@ export class RequestConsentComponent implements OnInit {
       aadhar: ['', [Validators.required]],
       enddate: ['', [Validators.required]],
       noPatientApp: [false],
-      useGuardianOTP: [false]
+      useGuardianOTP: [false],
     });
 
     this.consentForm.valueChanges.subscribe((data) =>
@@ -96,51 +92,102 @@ export class RequestConsentComponent implements OnInit {
     }
   }
 
-
   composeConsent() {
-    
     let myDate: Date = this.consentForm.value.enddate;
-    const enddate = this.datePipe.transform(myDate, 'yyyy-MM-ddTHH:mm:ss') as string;
+    const enddate = this.datePipe.transform(
+      myDate,
+      'yyyy-MM-ddTHH:mm:ss'
+    ) as string;
 
     let noPatientApp: boolean = this.consentForm.value.noPatientApp;
     let useGuardianOTP: boolean = this.consentForm.value.useGuardianOTP;
 
-    if(useGuardianOTP) {
+    if (useGuardianOTP) {
       this.consentService
-      .getConsentRequestGuardianOTP(
-        this.consentForm.value.sourcehospital,
-        this.consentForm.value.department,
-        this.consentForm.value.aadhar,
-        enddate
-      )?.subscribe((data) => {
-        this.router.navigate(['/consent-request-otp'], {state: {patientId: this.consentForm.value.aadhar}});
-      });
-    }
-    else if(noPatientApp) {
+        .getConsentRequestGuardianOTP(
+          this.consentForm.value.sourcehospital,
+          this.consentForm.value.department,
+          this.consentForm.value.aadhar,
+          enddate
+        )
+        ?.subscribe((data) => {
+          this.router.navigate(['/consent-request-otp'], {
+            state: { patientId: this.consentForm.value.aadhar },
+          });
+        });
+    } else if (noPatientApp) {
       this.consentService
-      .getConsentRequestPatientOTP(
-        this.consentForm.value.sourcehospital,
-        this.consentForm.value.department,
-        this.consentForm.value.aadhar,
-        enddate
-      )?.subscribe((data) => {
-        this.router.navigate(['/consent-request-otp'], {state: {patientId: this.consentForm.value.aadhar}});
-      });
-    }
-    else {
+        .getConsentRequestPatientOTP(
+          this.consentForm.value.sourcehospital,
+          this.consentForm.value.department,
+          this.consentForm.value.aadhar,
+          enddate
+        )
+        ?.subscribe((data) => {
+          this.router.navigate(['/consent-request-otp'], {
+            state: { patientId: this.consentForm.value.aadhar },
+          });
+        });
+    } else {
       this.consentService
-      .compose_consent(
-        this.consentForm.value.sourcehospital,
-        this.consentForm.value.department,
-        this.consentForm.value.aadhar,
-        enddate
-      )
-      ?.subscribe((data) => {
-        this.modalService.displayOkDialog('Consent Created Successfully!', '');
-        this.router.navigate(['/dashboard']);
-      });
+        .checkActiveConsent(
+          this.consentForm.value.sourcehospital,
+          this.consentForm.value.department,
+          this.consentForm.value.aadhar
+        )
+        ?.subscribe(
+          (data) => {
+            console.log(data);
+            this.modalService
+              .confirmationDialog(
+                'Existing Consent Found',
+                'Do you want to update the end date from [' +
+                  data[0].endTime.slice(0, 10) +
+                  ' ' +
+                  data[0].endTime.slice(12) +
+                  '] to [' +
+                  enddate.slice(0, 10) +
+                  ' ' +
+                  enddate.slice(12) +
+                  '] and request consent again? '
+              )
+              .subscribe((res) => {
+                if (res === 'y') {
+                  this.consentService
+                    .compose_consent(
+                      this.consentForm.value.sourcehospital,
+                      this.consentForm.value.department,
+                      this.consentForm.value.aadhar,
+                      enddate
+                    )
+                    ?.subscribe((data) => {
+                      this.modalService.displayOkDialog(
+                        'Consent Created Successfully!',
+                        ''
+                      );
+                      this.router.navigate(['/dashboard']);
+                    });
+                }
+              });
+          },
+          (err: any) => {
+            this.consentService
+              .compose_consent(
+                this.consentForm.value.sourcehospital,
+                this.consentForm.value.department,
+                this.consentForm.value.aadhar,
+                enddate
+              )
+              ?.subscribe((data) => {
+                this.modalService.displayOkDialog(
+                  'Consent Created Successfully!',
+                  ''
+                );
+                this.router.navigate(['/dashboard']);
+              });
+          }
+        );
     }
-    
   }
 
   ngOnInit(): void {}
