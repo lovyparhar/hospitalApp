@@ -37,7 +37,16 @@ export class CreatePatientRecordComponent implements OnInit {
       required: 'diagnosis is required.',
     },
   };
-  departments: any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
+  departments: any = [
+    'Enter any department',
+    'Radiology',
+    'Urology',
+    'Oncology',
+    'Gynaecology',
+    'Orthopaedics',
+    'Cardiology',
+    'Neurology',
+  ];
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,

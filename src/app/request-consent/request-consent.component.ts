@@ -39,7 +39,16 @@ export class RequestConsentComponent implements OnInit {
     },
   };
   sourceHospitals: any = ['All hospitals', 'H1', 'H2', 'H3'];
-  departments: any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
+  departments: any = [
+    'Enter any department',
+    'Radiology',
+    'Urology',
+    'Oncology',
+    'Gynaecology',
+    'Orthopaedics',
+    'Cardiology',
+    'Neurology',
+  ];
 
   constructor(
     private authenticationService: AuthenticationService,

@@ -34,7 +34,16 @@ export class RequestPatientDataComponent implements OnInit {
     },
   };
   sourceHospitals: any = ['H1', 'H2'];
-  departments: any = ['All departments', 'Radiology', 'Urology', 'Oncology'];
+  departments: any = [
+    'Enter any department',
+    'Radiology',
+    'Urology',
+    'Oncology',
+    'Gynaecology',
+    'Orthopaedics',
+    'Cardiology',
+    'Neurology',
+  ];
 
   constructor(
     private router: Router,
@@ -139,12 +148,13 @@ export class RequestPatientDataComponent implements OnInit {
   }
 
   getEmergencyRecords() {
-    let title: string = `<div class="alert">Confirm</div>`
+    let title: string = `<div class="alert">Confirm</div>`;
     let message: string = `Do you want to request data under emergency circumstances. This activity will be logged.`;
 
-    this.modalService.confirmationDialog("Confirm", message).subscribe(
-      (result) => {
-        if (result == "y") {
+    this.modalService
+      .confirmationDialog('Confirm', message)
+      .subscribe((result) => {
+        if (result == 'y') {
           this.consentService
             .request_emergency_data(
               this.getRecordsForm.value.sourcehospital,
@@ -171,11 +181,10 @@ export class RequestPatientDataComponent implements OnInit {
               }
             );
         }
-      }
-    )
+      });
   }
 
   ngOnInit(): void {
-    this.consentService.clearRecords().subscribe((data) => { });
+    this.consentService.clearRecords().subscribe((data) => {});
   }
 }
