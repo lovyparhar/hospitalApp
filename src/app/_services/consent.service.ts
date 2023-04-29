@@ -68,7 +68,7 @@ export class ConsentService {
     godFatherNumber: string
   ) {
     let postUrl =
-      this.globalService.hospitalRootUrl + '/auth/add-user-demographic';
+      this.globalService.hospitalRootUrl + '/staff/add-user-demographic';
 
     return this.http
       .post<any>(postUrl, {
@@ -78,7 +78,7 @@ export class ConsentService {
         phoneNumber: phoneNumber,
         dateOfBirth: dateOfBirth,
         godFatherName: godFatherName,
-        godFatherNumber: godFatherNumber
+        godFatherNumber: godFatherNumber,
       })
       .pipe(
         map((credentials) => {
